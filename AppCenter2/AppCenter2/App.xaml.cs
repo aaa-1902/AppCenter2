@@ -4,6 +4,9 @@ using AppCenter2.ViewModels;
 using AppCenter2.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace AppCenter2
@@ -24,6 +27,14 @@ namespace AppCenter2
             InitializeComponent();
 
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+            AppCenter.Start("android=6deed3b9-5cee-41c1-9284-979dba0e5201;" +
+                  "ios=79c179ee-62c3-421f-af10-a533de386ec6;",
+                  typeof(Analytics), typeof(Crashes));
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
